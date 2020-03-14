@@ -9,7 +9,8 @@ __author__ = 'lulis'
 
 app = Flask(__name__)
 app.secret_key = "123"
-base_picture = "static/known_people/Lucas.png"
+base_picture = "static/known_people/Luciana.png"
+base_name = 'Luciana'
 
 @app.before_first_request
 def init_db():
@@ -29,7 +30,7 @@ def insert_photo_e():
 
 @app.route('/welcome')
 def welcome():
-    new_picture = take_picture()
+    new_picture = take_picture(base_name)
     user_name = do_recognition(base_picture, new_picture)
     entry_time = str(datetime.datetime.now())[:-7]
     data = {"user": user_name, "entry_time": entry_time, "photo": new_picture}
@@ -39,7 +40,7 @@ def welcome():
     
 @app.route('/bye')
 def bye():
-    new_picture = take_picture()
+    new_picture = take_picture(base_name)
     user_name = do_recognition(base_picture, new_picture)
     exit_time = str(datetime.datetime.now())[:-7]
     data = {"user": user_name, "exit_time": exit_time, "photo": new_picture}
